@@ -20,6 +20,7 @@ public class RobotGame {
 	ArrayList<Point> murs=new ArrayList<Point>();
 	Boolean gagne=false;
 	Boolean obstacle=false;
+	Boolean perdu=false;
 
 	//////////////////////////////////////////////////CONTRUCTEUR
 
@@ -98,7 +99,7 @@ public class RobotGame {
 		if (n==2){
 			if (r.getY()<=r.cadeau.getY() && r.getX()>=r.cadeau.getX() ){
 
-				while(gagne==false ){
+				while(gagne==false && perdu==false){
 					//si le robot et le cadeau sont sur la meme case : gagné !
 					if (r.getX()==r.cadeau.getX() && r.getY()==r.cadeau.getY()){
 						gagne=true;
@@ -120,6 +121,9 @@ public class RobotGame {
 							else{r.setY(r.getY()+1);}
 							robotMap();
 							affMap();
+							if(r.getX()<r.cadeau.getX() || r.getY()>r.cadeau.getY()){
+								perdu=true;
+							}
 						}
 						//detection du mur squr l'axe x
 						for (Point mur : murs){
@@ -136,6 +140,9 @@ public class RobotGame {
 						else{r.setX(r.getX()-1);}
 						robotMap();
 						affMap();
+						if(r.getX()<r.cadeau.getX() || r.getY()>r.cadeau.getY()){
+							perdu=true;
+						}
 
 					}
 
