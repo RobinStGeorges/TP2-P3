@@ -1,19 +1,26 @@
 import java.util.ArrayList;
 
 public class RobotGame {
+	
+	////////////////////////////////////////////////////ATTRIBUTS
+	
 	Robot r;
 	int n;
+	
 	//nb de lignes
 	int nbL=10;
+	
 	//nb de colones
 	int nbC=10;
+	
 	//matrice
 	int[][] map;
+	
 	//liste des murs
 	ArrayList<Point> murs=new ArrayList<Point>();
 	Boolean gagne=false;
 
-	//CONTRUCTEUR
+	//////////////////////////////////////////////////CONTRUCTEUR
 
 	public RobotGame(Robot r,int n){
 		this.r=r;
@@ -41,33 +48,38 @@ public class RobotGame {
 
 
 
-	//METHODES
+	//////////////////////////////////////////////////////////METHODES
 
 	//permet d'afficher toutes les données telles que les dimensions de la pièce, la position initiale du robot, la position du cadeau
+	//lance le jeu
 	public void play(){
 		System.out.println("la position du robot au départ est : "+r.toString()+" , celle du cadeau est "+r.cadeau.toString());
 		if (n>1){
 			System.out.println("Il y a des mur en " + mursToString(murs));
 		}
 		else{
-			System.out.println(" ,il n'y a pas de mur ");
+			System.out.println(" , et il n'y a pas de mur ");
 		}
 
 		//creer la map
 		rempliMap();
+		
 		//ajoute les murs
 		mursMap();
+		
 		//ajoute le robot
 		robotMap();
+		
 		//ajoute le cadeau
 		cadeauMap();
+		
 		//affiche la map
 		affMap();
 
 		//algorythme pour trouver le cadeau niveau UN
 		if(n==1){
 			if (r.getY()<=r.cadeau.getY() && r.getX()>=r.cadeau.getX() ){
-				
+
 				while(gagne==false ){
 					//si le robot et le cadeau sont sur la meme case : gagné !
 					if (r.equals(r.cadeau)){
@@ -82,11 +94,29 @@ public class RobotGame {
 
 			}
 		}
+		if (n==2){
+			if (r.getY()<=r.cadeau.getY() && r.getX()>=r.cadeau.getX() ){
+
+				while(gagne==false ){
+					//si le robot et le cadeau sont sur la meme case : gagné !
+					if (r.equals(r.cadeau)){
+						gagne=true;
+					}
+					
+
+				}
+
+			}
+
+		}
 
 	}
 
 
 	//affiche la position du robot et du cadeau si le jeu est perdu
+	/**
+	 * 
+	 */
 	public void debugMap() {
 		// TODO Auto-generated method stub
 		System.out.println("Perdu ! ");
@@ -95,7 +125,11 @@ public class RobotGame {
 	}
 
 
-
+	//Renvoit true si le jeu est gagné
+	/**
+	 * 
+	 * @return
+	 */
 	public boolean won() {
 		if (r.getX()==r.cadeau.getX() && r.getY()==r.cadeau.getY()){
 			return true;
@@ -104,7 +138,12 @@ public class RobotGame {
 	}
 
 
-
+	//affiche les murs du arrayList sur la map
+	/**
+	 * 
+	 * @param a
+	 * @return
+	 */
 	public String mursToString(ArrayList<Point> a){
 		String b="";
 		for(Point p : murs){
@@ -115,6 +154,9 @@ public class RobotGame {
 
 
 	//remplir la matrice 
+	/**
+	 * 
+	 */
 	public void rempliMap() {
 		for(int i=0; i<map.length; i++) {
 			for(int j=0; j<map[i].length; j++) {
@@ -126,6 +168,9 @@ public class RobotGame {
 	}
 
 	//affiche matrice
+	/**
+	 * 
+	 */
 	public void affMap(){
 		// Affichage de la matrice
 		for(int i=0; i<map.length; i++) {
@@ -151,6 +196,9 @@ public class RobotGame {
 	}
 
 	//ajoute les murs
+	/**
+	 * 
+	 */
 	public void mursMap(){
 		for(Point p : murs){
 			int x=p.getX();
@@ -160,12 +208,18 @@ public class RobotGame {
 	}
 
 	//positionne le robot
+	/**
+	 * 
+	 */
 	public void robotMap(){
 		int x=r.getX();
 		int y=r.getY();
 		map[x][y]=1;
 	}
 	//positionne le cadeau
+	/**
+	 * 
+	 */
 	public void cadeauMap(){
 		int x=r.cadeau.getX();
 		int y=r.cadeau.getY();
@@ -175,7 +229,7 @@ public class RobotGame {
 
 
 	//GETTERS
-
+	
 	public int getNbL() {
 		return nbL;
 	}

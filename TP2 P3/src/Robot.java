@@ -1,16 +1,18 @@
 
 public class Robot extends Point {
 	
-	//ATTRIBUTS
+	/////////////////////////////////////////////////////////////////ATTRIBUTS
 	
 	Point cadeau;
+	
+	//random
 	int lower = 0;
 	int higher = 9;
 	int random1=(int)(Math.random() * (higher-lower)) + lower;
 	int random2=(int)(Math.random() * (higher-lower)) + lower;
 	
 	
-	//CONSTRUCTEURS
+	/////////////////////////////////////////////////////////////////CONSTRUCTEURS
 	public Robot(int x, int y) {
 		super(x, y);
 		cadeau=new Point(random1,random2);
@@ -21,7 +23,7 @@ public class Robot extends Point {
 		cadeau=new Point(random1,random2);
 	}
 
-	//METHODES
+	/////////////////////////////////////////////////////////////////METHODES
 	
 	//pour tourner a gauche
 	public void turnLeft(){
@@ -36,6 +38,10 @@ public class Robot extends Point {
 	
 	
 	//retourne la position actuelle du robot en x 
+	/**
+	 * 
+	 * @return
+	 */
 	public Point getCurrentPosition(){
 		return new Point(this.getX(),this.getY());
 		
@@ -49,6 +55,10 @@ public class Robot extends Point {
 	}
 	
 	//retourne la position du cadeau
+	/**
+	 * 
+	 * @return
+	 */
 	public Point getPresentPosition(){
 		return cadeau;
 	}
