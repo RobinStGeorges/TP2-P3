@@ -1,24 +1,25 @@
 import java.util.ArrayList;
 
 public class RobotGame {
-	
+
 	////////////////////////////////////////////////////ATTRIBUTS
-	
+
 	Robot r;
 	int n;
-	
+
 	//nb de lignes
 	int nbL=10;
-	
+
 	//nb de colones
 	int nbC=10;
-	
+
 	//matrice
 	int[][] map;
-	
+
 	//liste des murs
 	ArrayList<Point> murs=new ArrayList<Point>();
 	Boolean gagne=false;
+	Boolean obstacle=false;
 
 	//////////////////////////////////////////////////CONTRUCTEUR
 
@@ -63,16 +64,16 @@ public class RobotGame {
 
 		//creer la map
 		rempliMap();
-		
+
 		//ajoute les murs
 		mursMap();
-		
+
 		//ajoute le robot
 		robotMap();
-		
+
 		//ajoute le cadeau
 		cadeauMap();
-		
+
 		//affiche la map
 		affMap();
 
@@ -99,11 +100,48 @@ public class RobotGame {
 
 				while(gagne==false ){
 					//si le robot et le cadeau sont sur la meme case : gagné !
-					if (r.equals(r.cadeau)){
+					if (r.getX()==r.cadeau.getX() && r.getY()==r.cadeau.getY()){
 						gagne=true;
 					}
-					
+					while (r.getX()>=r.cadeau.getX()+1){
+						while (r.getY()<=r.cadeau.getY()-1){
+							//Detection du mur sur l'axe y
+							for (Point mur : murs){
+								if (mur.getX()==r.getX() && mur.getY()==(r.getY()+1)){
+									obstacle=true;
+								}
+								else{obstacle = false;}
+							}
+							if(obstacle==true){
+								r.setX(r.getX()-1);	
+								robotMap();
+								affMap();
+							}
+							else{r.setY(r.getY()+1);}
+							robotMap();
+							affMap();
+						}
+						//detection du mur squr l'axe x
+						for (Point mur : murs){
+							if (mur.getY()==r.getY() && mur.getX()==(r.getX()-1)){
+								obstacle=true;
+							}
+							else{obstacle = false;}
+						}
+						if(obstacle==true){
+							r.setY(r.getY()+1);	
+							robotMap();
+							affMap();
+						}
+						else{r.setX(r.getX()-1);}
+						robotMap();
+						affMap();
 
+					}
+
+					if (r.getX()==r.cadeau.getX() && r.getY()==r.cadeau.getY()){
+						gagne=true;
+					}
 				}
 
 			}
@@ -132,6 +170,7 @@ public class RobotGame {
 	 */
 	public boolean won() {
 		if (r.getX()==r.cadeau.getX() && r.getY()==r.cadeau.getY()){
+			System.out.println("Vous avez gagnez ! Bravo !");
 			return true;
 		}
 		else {return false;}
@@ -173,6 +212,7 @@ public class RobotGame {
 	 */
 	public void affMap(){
 		// Affichage de la matrice
+		System.out.println("|||||||||||");
 		for(int i=0; i<map.length; i++) {
 			for(int j=0; j<map[i].length; j++) {
 				int a=map[i][j];
@@ -229,7 +269,7 @@ public class RobotGame {
 
 
 	//GETTERS
-	
+
 	public int getNbL() {
 		return nbL;
 	}
